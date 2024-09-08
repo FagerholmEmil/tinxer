@@ -19,6 +19,9 @@
     "react": "^18",
     "react-dom": "^18",
     "shadcn": "^2.0.4",
+    "react-pdf": "^9.1.0",
+    "react-spinners": "^0.14.1",
+    "react-tinder-card": "^1.6.4",
     "tailwind-merge": "^2.5.2",
     "tailwindcss-animate": "^1.0.7"
   },
