@@ -21,6 +21,14 @@ const TinderCards: React.FC = () => {
       name: "Not all doped Mott insulators have a pseudogap: key role of van Hove singularities",
       pdfUrl: "https://arxiv.org/pdf/1706.03762.pdf",
     },
+    {
+      name: "Not all doped Mott insulators have a pseudogap: key role of van Hove singularities",
+      pdfUrl: "https://arxiv.org/pdf/1706.03762.pdf",
+    },
+    {
+      name: "Not all doped Mott insulators have a pseudogap: key role of van Hove singularities",
+      pdfUrl: "https://arxiv.org/pdf/1706.03762.pdf",
+    },
   ]);
 
   const onSwipe = (direction: string) => {
