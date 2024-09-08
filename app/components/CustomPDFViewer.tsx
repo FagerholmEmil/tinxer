@@ -18,47 +18,10 @@ import LoadingSpinner from './LoadingSpinner';
 
 interface CustomPDFViewerProps {
   pdfUrls: string[];
-  onLikedPdfUpdate: (url: string) => void;
 }
 
-function CustomPDFViewer({ pdfUrls, onLikedPdfUpdate }: CustomPDFViewerProps) {
+function CustomPDFViewer({ pdfUrls }: CustomPDFViewerProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [savedPdfs, setSavedPdfs] = useState<string[]>([]);
-  const [lastAction, setLastAction] = useState<string | null>(null);
-
-  useEffect(() => {
-    const handleKeyPress = (event: KeyboardEvent) => {
-      const currentUrl = pdfUrls[currentIndex];
-      if (!currentUrl) return;
-
-      if (event.key === '1') {
-        savePdf(currentUrl);
-        setCurrentIndex((prev) => (prev + 1) % pdfUrls.length);
-        setLastAction("Like");
-      } else if (event.key === '2') {
-        setCurrentIndex((prev) => (prev + 1) % pdfUrls.length);
-        setLastAction("Skip");
-      }
-    };
-
-    window.addEventListener('keydown', handleKeyPress);
-    return () => window.removeEventListener('keydown', handleKeyPress);
-  }, [currentIndex, pdfUrls, onLikedPdfUpdate]);
-
-  useEffect(() => {
-    if (lastAction) {
-      const timer = setTimeout(() => setLastAction(null), 1000); // Clear after 1 second
-      return () => clearTimeout(timer);
-    }
-  }, [lastAction]);
-
-  const savePdf = async (url: string) => {
-    if (url) {
-      setSavedPdfs((prev) => [...prev, url]);
-      await saveLikedPdf(url);
-      onLikedPdfUpdate(url);
-    }
-  };
 
   if (pdfUrls.length === 0) {
     return <div className='flex flex-col justify-center items-center min-h-screen text-black'> 
@@ -67,15 +30,8 @@ function CustomPDFViewer({ pdfUrls, onLikedPdfUpdate }: CustomPDFViewerProps) {
   }
 
   return (
-    <div className='flex flex-col justify-center items-center min-h-screen relative'>
-      {lastAction && (
-        <div className={`absolute top-4 left-1/2 transform -translate-x-1/2 text-white p-2 rounded z-10 ${
-          lastAction === 'Like' ? 'bg-green-500' : 'bg-red-500'
-        }`}>
-          {lastAction}
-        </div>
-      )}
-      <Document file={pdfUrls[currentIndex]}>
+    <div className='flex flex-col justify-center items-center w-[600px] p-5 max-w-[85vw] rounded-[20px] relative'>
+      <Document file={"https://arxiv.org/pdf/2001.00019"}>
         <Page pageNumber={1} />
       </Document>
     </div>
