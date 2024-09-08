@@ -21,8 +21,6 @@ interface CustomPDFViewerProps {
 }
 
 function CustomPDFViewer({ pdfUrls }: CustomPDFViewerProps) {
-  const [currentIndex, setCurrentIndex] = useState(0);
-
   if (pdfUrls.length === 0) {
     return (
       <div className="flex flex-col justify-center items-center  text-black">
@@ -34,7 +32,7 @@ function CustomPDFViewer({ pdfUrls }: CustomPDFViewerProps) {
   return (
     <div className="flex flex-col justify-center items-center w-[600px] p-5 max-w-[85vw] rounded-[20px] relative">
       <Document
-        file={"https://arxiv.org/pdf/2001.00019"}
+        file={pdfUrls[0].replace("http://", "https://")}
         className="unselectable"
       >
         <Page pageNumber={1} width={340} scale={0.8} className="unselectable" />
