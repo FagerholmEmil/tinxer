@@ -3,6 +3,7 @@ import TinderCard from "react-tinder-card";
 import CustomPDFViewer from "./CustomPDFViewer";
 import { Button } from "./ui/button";
 import Link from "next/link";
+import { saveLikedPdf } from "@/app/utils/pdfUtils";
 
 interface Paper {
   name: string;
@@ -44,15 +45,19 @@ const usePapers = () => {
 const TinderCards: React.FC = () => {
   const papers = usePapers();
   const [currentIndex, setCurrentIndex] = useState(0);
+  const ci = (papers.length ?? 1) - 1 - currentIndex;
+
+  const likePaper = (paper: Paper) => {
+    saveLikedPdf(paper.pdfUrl);
+  };
 
   const onSwipe = (direction: string) => {
-    console.log("You swiped: " + direction, currentIndex);
-    if (direction === "up") {
-      window.open(papers[currentIndex].pdfUrl, "_blank");
+    setCurrentIndex((prev) => prev + 1);
+    if (direction === "right") {
+      likePaper(papers[ci]);
       return;
     }
     console.log("You swiped: " + direction);
-    setCurrentIndex((prev) => prev + 1);
     // open the pdf in new tab
   };
 
@@ -62,8 +67,8 @@ const TinderCards: React.FC = () => {
 
   return (
     <div className="flex items-center justify-center">
-      <div className="relative w-[300px] h-[80vh] mt-20">
-        {papers.slice(0, currentIndex + 2).map((paper) => (
+      <div className="relative w-[300px] h-[80vh] mt-10">
+        {papers.map((paper) => (
           <TinderCard
             key={paper.name}
             onSwipe={onSwipe}
@@ -71,52 +76,29 @@ const TinderCards: React.FC = () => {
             preventSwipe={["up", "down"]}
             className="absolute w-full h-full bg-white flex flex-col  items-center"
           >
-            <h1 className="p-4">{paper.name}</h1>
+            <h1 className="p-4 pt-2 pb-2 font-bold">{paper.name}</h1>
+            <p className="px-4 text-xs">{paper.summary}</p>
             <div className="w-full rounded-[20px] bg-white overflow-hidden">
               <div className="flex items-start justify-center overflow-y-auto h-full">
                 <CustomPDFViewer pdfUrls={[paper.pdfUrl]} />
               </div>
             </div>
-            <Link href={paper.pdfUrl} target="_blank" rel="noopener noreferrer">
-              <Button>Read More</Button>
-            </Link>
           </TinderCard>
         ))}
       </div>
 
-      <div className="absolute bottom-[100px] left-1/2 transform -translate-x-1/2 flex space-x-4">
-        <button className="bg-white rounded-full p-3 shadow-lg">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6 text-green-500"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
+      <div className="absolute bottom-[100px] left-1/2 transform -translate-x-1/2 flex space-x-4 flex flex-row items-center justify-center">
+        {papers[ci] && (
+          <Link
+            href={papers[ci]?.pdfUrl}
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M5 13l4 4L19 7"
-            />
-          </svg>
-        </button>
-        <button className="bg-white rounded-full p-3 shadow-lg">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6 text-gray-500"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M6 18L18 6M6 6l12 12"
-            />
-          </svg>
-        </button>
+            <button className="bg-red-400 rounded-full p-3 shadow-lg text-nowrap text-white">
+              Read More
+            </button>
+          </Link>
+        )}
       </div>
     </div>
   );
