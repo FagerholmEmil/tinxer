@@ -9,7 +9,7 @@ const ProfilePage = async () => {
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6">Your Profile: {user?.user_metadata.full_name || 'User'}</h1>
+      <h1 className="text-3xl font-bold mb-6">Your Profile: {user?.user_metadata.full_name || 'Emil Fagerholm'}</h1>
       <ProfileContent />
     </div>
   )

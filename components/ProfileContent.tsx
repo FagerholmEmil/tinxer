@@ -1,6 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Button } from "./ui/button";
 import { Card, CardHeader, CardContent } from "./ui/card";
 import Sidebar from "../components/Sidebar";
 import { useUser } from "@/app/login/useUser";
@@ -11,6 +10,7 @@ import CustomPDFViewer from "./CustomPDFViewer";
 
 const ProfileContent: React.FC = () => {
   const [likedPapers, setLikedPapers] = useState<Paper[]>([]);
+  const reversedPapers = likedPapers.slice().reverse();
   const user = useUser();
 
   useEffect(() => {
@@ -31,11 +31,13 @@ const ProfileContent: React.FC = () => {
 
       <Card>
         <CardHeader>
-          <h2 className="text-xl font-semibold">Liked Papers</h2>
+          <h2 className="text-xl font-semibold">
+            Liked Papers ({reversedPapers.length})
+          </h2>
         </CardHeader>
         <CardContent>
           <div className="flex flex-wrap pb-8">
-            {likedPapers.map((paper) => (
+            {reversedPapers.map((paper) => (
               <div key={paper.name} className="w-1/3  p-4 flex flex-col  gap-2">
                 <h1 className="font-bold overflow-ellipsis line-clamp-2">
                   {paper.name}

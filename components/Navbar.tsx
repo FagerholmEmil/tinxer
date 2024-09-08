@@ -16,6 +16,9 @@ export default function Navbar() {
         <Image src={minilogo} alt="logo" className="h-8 w-8" />
         <h1 className="text-xl font-bold">TinXer</h1>
       </Link>
+      <Link href="/leaderboard">
+        <Button variant="outline">Leaderboard</Button>
+      </Link>
       <div className="flex items-center gap-4">
         {user ? (
           <>
