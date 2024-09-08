@@ -12,17 +12,39 @@ export default function Navbar() {
 
   return (
     <div className="flex items-center justify-between w-full h-16 px-4 py-2 bg-white shadow-sm">
-      <div className="flex items-center gap-4">
+      <Link href="/" className="flex items-center gap-4">
         <Image src={minilogo} alt="logo" className="h-8 w-8" />
         <h1 className="text-xl font-bold">TinXer</h1>
-      </div>
+      </Link>
       <div className="flex items-center gap-4">
         {user ? (
-          <Button onClick={() => supabase.auth.signOut()}>Sign out</Button>
+          <>
+            {user.user_metadata?.avatar_url && (
+              <Link href="/">
+                <Image
+                  src={user.user_metadata.avatar_url}
+                  alt="User avatar"
+                  width={32}
+                  height={32}
+                  className="rounded-full"
+                />
+              </Link>
+            )}
+            <Button onClick={() => supabase.auth.signOut()}>Sign out</Button>
+          </>
         ) : (
-          <Link href="/login" className="text-blue-500 hover:underline">
-            Sign in
-          </Link>
+          <>
+            <Image
+              src="/default-avatar.png"
+              alt="Default avatar"
+              width={32}
+              height={32}
+              className="rounded-full"
+            />
+            <Link href="/login" className="text-blue-500 hover:underline">
+              Sign in
+            </Link>
+          </>
         )}
       </div>
     </div>
