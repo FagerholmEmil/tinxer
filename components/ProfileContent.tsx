@@ -29,8 +29,6 @@ const ProfileContent: React.FC = () => {
         <h2 className="text-2xl font-bold mb-4">Settings</h2>
         <Sidebar />
       </div>
-
-      <Button className="w-full">Update</Button>
     </div>
   );
 };
