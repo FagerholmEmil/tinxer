@@ -25,25 +25,27 @@ const parseXMLPapers = (xml: string) => {
   return parsedPapers;
 };
 
+const get = async (t: string) =>
+  fetch(
+    `http://export.arxiv.org/api/query?search_query=all:${encodeURIComponent(t || "Machine learning")}&start=0&max_results=20`,
+  )
+    .then((response) => response.text())
+    .then((data) => parseXMLPapers(data));
+
 const usePapers = () => {
   const [papers, setPapers] = useState<Paper[] | null>(null);
   const { topic } = useSettingsContext();
 
   useEffect(() => {
     runAI(
-      "Given the following topics, respond only with a combined search query that fits with this. Nothing else. just the search query. Max 280 characters. ",
+      "Given the following topics, respond only with a combined search query that fits with this. Nothing else. just the search query. very simple. ",
       topic.join("\n"),
     )
-      .then((res) => res?.trim())
-      .then((t) =>
-        fetch(
-          `http://export.arxiv.org/api/query?search_query=all:${encodeURIComponent(t || "Machine learning")}&start=0&max_results=20`,
-        ),
-      )
-      .then((response) => response.text())
-      .then((data) => parseXMLPapers(data))
+      .then((res) => res!.trim())
+      .then((t) => get(t))
+      .then((papers) => (papers.length ? papers : get(topic[0])))
       .then((papers) => setPapers(papers));
-  }, []);
+  }, [topic]);
 
   return papers;
 };
@@ -85,7 +87,7 @@ const TinderCards: React.FC = () => {
             className="select-none absolute w-full h-full bg-white flex flex-col  items-center"
           >
             <h1 className="p-4 pt-2 pb-2 font-bold">{paper.name}</h1>
-            <p className="px-4 text-xs">{paper.summary}</p>
+            <p className="px-4 text-xs">{paper.summary?.slice(0, 240)}...</p>
             <div className="w-full rounded-[20px] bg-white overflow-hidden">
               <div className="flex items-start justify-center overflow-y-auto h-full">
                 <CustomPDFViewer pdfUrls={[paper.pdfUrl]} />

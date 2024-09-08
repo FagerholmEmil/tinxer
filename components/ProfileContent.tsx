@@ -61,7 +61,6 @@ const ProfileContent: React.FC = () => {
       </Card>
 
       <div>
-        <h2 className="text-2xl font-bold mb-4">Settings</h2>
         <Sidebar />
       </div>
     </div>
