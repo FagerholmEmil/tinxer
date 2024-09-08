@@ -38,9 +38,6 @@ function CustomPDFViewer({ pdfUrls, onLikedPdfUpdate }: CustomPDFViewerProps) {
       } else if (event.key === '2') {
         setCurrentIndex((prev) => (prev + 1) % pdfUrls.length);
         setLastAction("Skip");
-      } else if (event.key === '3') {
-        setCurrentIndex((prev) => (prev + 1) % pdfUrls.length);
-        setLastAction("Ultra Like");
       }
     };
 
@@ -73,9 +70,7 @@ function CustomPDFViewer({ pdfUrls, onLikedPdfUpdate }: CustomPDFViewerProps) {
     <div className='flex flex-col justify-center items-center min-h-screen relative'>
       {lastAction && (
         <div className={`absolute top-4 left-1/2 transform -translate-x-1/2 text-white p-2 rounded z-10 ${
-          lastAction === 'Like' ? 'bg-green-500' :
-          lastAction === 'Skip' ? 'bg-red-500' :
-          'bg-yellow-500'
+          lastAction === 'Like' ? 'bg-green-500' : 'bg-red-500'
         }`}>
           {lastAction}
         </div>

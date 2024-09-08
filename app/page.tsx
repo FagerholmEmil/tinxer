@@ -1,38 +1,14 @@
 'use client';
 
-import React, { useState, useCallback, useEffect } from 'react';
-import ArxivFetcher from './components/ArxivFetcher';
-import CustomPDFViewer from './components/CustomPDFViewer';
-import { getLikedPdfs } from './utils/pdfUtils';
+import React from 'react';
+import TinderCards from './components/TinderCards';
 
-const PDFBrowser: React.FC = () => {
-  const [pdfLinks, setPdfLinks] = useState<string[]>([]);
-  const [likedPdfs, setLikedPdfs] = useState<string[]>([]);
-
-  useEffect(() => {
-    const fetchLikedPdfs = async () => {
-      const oldLikedPdfs = await getLikedPdfs();
-      setLikedPdfs(oldLikedPdfs);
-    };
-    fetchLikedPdfs();
-  }, []);
-
-  const handlePdfLinksUpdate = (links: string[]) => {
-    setPdfLinks(links);
-  };
-
-  const handleLikedPdfUpdate = useCallback((newLikedPdf: string) => {
-    setLikedPdfs(prev => [...prev, newLikedPdf]);
-  }, []);
-
+const Home: React.FC = () => {
   return (
-    <div className='flex flex-row justify-center items-center min-h-[50vh] w-full'>
-      <div className='w-1/2 m-4 rounded-lg bg-white shadow-xl'>
-        <ArxivFetcher onPdfLinksUpdate={handlePdfLinksUpdate} />
-        <CustomPDFViewer pdfUrls={pdfLinks} onLikedPdfUpdate={handleLikedPdfUpdate} />
-      </div>
+    <div className="flex items-center justify-center min-h-screen">
+      <TinderCards />
     </div>
   );
 };
 
-export default PDFBrowser;
+export default Home;
