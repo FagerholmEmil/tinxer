@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
 import TinderCard from "react-tinder-card";
 import CustomPDFViewer from "./CustomPDFViewer";
-import { Button } from "./ui/button";
+
 import Link from "next/link";
 import { saveLikedPdf } from "@/app/utils/pdfUtils";
-
-interface Paper {
-  name: string;
-  pdfUrl: string;
-  summary?: string;
-}
+import { Paper } from "./Paper";
+import { useUser } from "@/app/login/useUser";
+import { runAI } from "./ai";
+import { useSettingsContext } from "./providers";
 
 const parseXMLPapers = (xml: string) => {
   const parser = new DOMParser();
@@ -28,12 +26,19 @@ const parseXMLPapers = (xml: string) => {
 
 const usePapers = () => {
   const [papers, setPapers] = useState<Paper[]>([]);
-  const topic = "Machine learning";
+  const { topic } = useSettingsContext();
 
   useEffect(() => {
-    fetch(
-      `http://export.arxiv.org/api/query?search_query=all:${encodeURIComponent(topic)}&start=0&max_results=20`,
+    runAI(
+      "Given the following topics, respond only with a combined search query that fits with this. Nothing else. just the search query.",
+      topic.join("\n"),
     )
+      .then((res) => res?.trim())
+      .then((t) =>
+        fetch(
+          `http://export.arxiv.org/api/query?search_query=all:${encodeURIComponent(t || "Machine learning")}&start=0&max_results=20`,
+        ),
+      )
       .then((response) => response.text())
       .then((data) => parseXMLPapers(data))
       .then((papers) => setPapers(papers));
@@ -47,8 +52,10 @@ const TinderCards: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const ci = (papers.length ?? 1) - 1 - currentIndex;
 
+  const user = useUser();
+
   const likePaper = (paper: Paper) => {
-    saveLikedPdf(paper.pdfUrl);
+    saveLikedPdf(paper, user!.id);
   };
 
   const onSwipe = (direction: string) => {
@@ -74,7 +81,7 @@ const TinderCards: React.FC = () => {
             onSwipe={onSwipe}
             onCardLeftScreen={() => onCardLeftScreen(paper.name)}
             preventSwipe={["up", "down"]}
-            className="absolute w-full h-full bg-white flex flex-col  items-center"
+            className="select-none absolute w-full h-full bg-white flex flex-col  items-center"
           >
             <h1 className="p-4 pt-2 pb-2 font-bold">{paper.name}</h1>
             <p className="px-4 text-xs">{paper.summary}</p>

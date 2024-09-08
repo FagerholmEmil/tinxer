@@ -1,9 +1,24 @@
-import React from 'react';
-import { Button } from './ui/button';
-import { Card, CardHeader, CardContent } from './ui/card';
-import Sidebar  from '../components/Sidebar';
+"use client";
+import React, { useEffect, useState } from "react";
+import { Button } from "./ui/button";
+import { Card, CardHeader, CardContent } from "./ui/card";
+import Sidebar from "../components/Sidebar";
+import { useUser } from "@/app/login/useUser";
+import { getLikedPdfs } from "@/app/utils/pdfUtils";
+import { Paper } from "./Paper";
+import Link from "next/link";
+import CustomPDFViewer from "./CustomPDFViewer";
 
 const ProfileContent: React.FC = () => {
+  const [likedPapers, setLikedPapers] = useState<Paper[]>([]);
+  const user = useUser();
+
+  useEffect(() => {
+    if (user) {
+      getLikedPdfs(user.id).then((likedPapers) => setLikedPapers(likedPapers));
+    }
+  }, [user]);
+
   return (
     <div className="space-y-6">
       <Card>
@@ -11,9 +26,7 @@ const ProfileContent: React.FC = () => {
           <h2 className="text-xl font-semibold">Your Matches</h2>
           <p className="text-xl font-semibold">False</p>
         </CardHeader>
-        <CardContent>
-          {/* Add matches content here */}
-        </CardContent>
+        <CardContent>{/* Add matches content here */}</CardContent>
       </Card>
 
       <Card>
@@ -21,7 +34,22 @@ const ProfileContent: React.FC = () => {
           <h2 className="text-xl font-semibold">Liked Papers</h2>
         </CardHeader>
         <CardContent>
-          {/* Add liked papers content here */}
+          <div className="flex flex-wrap pb-8">
+            {likedPapers.map((paper) => (
+              <div key={paper.name} className="w-1/3  p-4 flex flex-col  gap-2">
+                <h1 className="font-bold overflow-ellipsis line-clamp-2">
+                  {paper.name}
+                </h1>
+                <Link
+                  href={paper.pdfUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <CustomPDFViewer pdfUrls={[paper.pdfUrl]} />
+                </Link>
+              </div>
+            ))}
+          </div>
         </CardContent>
       </Card>
 

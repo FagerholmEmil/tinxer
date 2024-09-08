@@ -4,7 +4,6 @@
 
 import React, { useState, useEffect } from "react";
 import { Document, Page, pdfjs } from "react-pdf";
-import { saveLikedPdf } from "../app/utils/pdfUtils";
 
 // Set up the worker for PDF.js
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
@@ -30,7 +29,7 @@ function CustomPDFViewer({ pdfUrls }: CustomPDFViewerProps) {
   }
 
   return (
-    <div className="flex flex-col justify-center items-center w-[600px] p-5 max-w-[85vw] rounded-[20px] relative">
+    <div className="flex flex-col justify-center items-center w-full p-5 max-w-[85vw] rounded-[20px] relative">
       <Document
         file={pdfUrls[0].replace("http://", "https://")}
         className="unselectable"

@@ -1,8 +1,9 @@
-"use client"
+"use client";
 
 import React, { useState, useEffect, useCallback } from "react";
 import { Button } from "./ui/button";
 import { ChevronDown, ChevronRight } from "lucide-react";
+import { useSettingsContext } from "./providers";
 
 interface SidebarProps {
   className?: string;
@@ -18,12 +19,11 @@ interface TopicData {
     };
   };
 }
-
 const Sidebar: React.FC<SidebarProps> = ({ className }) => {
   const [topics, setTopics] = useState<TopicData>({});
   const [expandedTopics, setExpandedTopics] = useState<string[]>([]);
   const [isUpdateActive, setIsUpdateActive] = useState(false);
-  const [selectedSubtopics, setSelectedSubtopics] = useState<string[]>([]);
+  const { topic: flatTopics, setTopic: setFlatTopics } = useSettingsContext();
 
   const fetchTopics = useCallback(async () => {
     try {
@@ -44,8 +44,6 @@ const Sidebar: React.FC<SidebarProps> = ({ className }) => {
     setExpandedTopics((prev) =>
       prev.includes(topic) ? prev.filter((t) => t !== topic) : [...prev, topic],
     );
-    console.log("Toggled topic:", topic);
-    console.log("Subtopics for", topic, ":", topics[topic]);
   };
 
   const handleUpdate = async () => {
@@ -55,7 +53,7 @@ const Sidebar: React.FC<SidebarProps> = ({ className }) => {
   };
 
   const toggleSubtopic = (subtopic: string) => {
-    setSelectedSubtopics((prev) =>
+    setFlatTopics((prev) =>
       prev.includes(subtopic)
         ? prev.filter((s) => s !== subtopic)
         : [...prev, subtopic],
@@ -83,14 +81,13 @@ const Sidebar: React.FC<SidebarProps> = ({ className }) => {
           {expandedTopics.includes(topic) && (
             <div className="flex gap-1 flex-wrap">
               {Object.keys(subtopics).map((subtopic) => {
-                console.log("Rendering subtopic:", subtopic, "for topic:", topic);
                 return (
                   <Button
                     key={subtopic}
                     variant={
-                      selectedSubtopics.includes(subtopic) ? "default" : "outline"
+                      flatTopics.includes(subtopic) ? "default" : "outline"
                     }
-                    className={`text-sm ${selectedSubtopics.includes(subtopic) ? "bg-primary text-primary-foreground" : ""}`}
+                    className={`text-sm ${flatTopics.includes(subtopic) ? "bg-primary text-primary-foreground" : ""}`}
                     onClick={() => toggleSubtopic(subtopic)}
                   >
                     {subtopic}

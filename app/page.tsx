@@ -5,7 +5,6 @@ import TinderCards from "../components/TinderCards";
 import Image from "next/image";
 import phone from "../assets/phone.svg";
 import logo from "../assets/logo.svg";
-import Sidebar from "@/components/Sidebar";
 
 const Home: React.FC = () => {
   return (
