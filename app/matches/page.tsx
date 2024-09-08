@@ -9,6 +9,7 @@ interface User {
   name: string
   avatar: string
   interests: string[]
+  similarity: number // Add this line
 }
 
 const generateFakeUsers = (count: number): User[] => {
@@ -17,6 +18,7 @@ const generateFakeUsers = (count: number): User[] => {
     name: faker.person.fullName(),
     avatar: faker.image.avatar(),
     interests: Array.from({ length: 3 }, () => faker.word.noun()),
+    similarity: faker.number.int({ min: 60, max: 100 }) // Add this line
   }))
 }
 
@@ -38,9 +40,10 @@ const Matches = () => {
               placeholder="blur"
               blurDataURL="/placeholder-avatar.png"
             />
-            <div>
+            <div className="flex-grow">
               <h2 className="font-semibold">{user.name}</h2>
               <p className="text-sm text-gray-600">Interests: {user.interests.join(', ')}</p>
+              <p className="text-sm font-medium text-green-600 mt-1">{user.similarity}% Match</p>
             </div>
           </div>
         ))}

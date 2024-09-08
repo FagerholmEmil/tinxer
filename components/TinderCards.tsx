@@ -87,7 +87,7 @@ const TinderCards: React.FC = () => {
         ))}
       </div>
 
-      <div className="absolute bottom-[100px] left-1/2 transform -translate-x-1/2 flex space-x-4 flex flex-row items-center justify-center">
+      <div className="absolute bottom-[100px] left-1/2 transform -translate-x-1/2 flex space-x-4 flex-row items-center justify-center">
         {papers[ci] && (
           <Link
             href={papers[ci]?.pdfUrl}
