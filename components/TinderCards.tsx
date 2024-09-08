@@ -40,7 +40,7 @@ const TinderCards: React.FC = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen">
+    <div className="flex items-center justify-center">
       <div className="relative w-[300px] h-[80vh]">
         {people.map((person, index) => (
           <TinderCard

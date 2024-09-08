@@ -9,7 +9,7 @@ import Sidebar from "@/components/Sidebar";
 
 const Home: React.FC = () => {
   return (
-    <div className="flex items-center justify-end min-h-screen relative">
+    <div className="flex items-center justify-end relative">
       <Sidebar className="absolute top-15 left-0 h-full" />
       <div className="relative mr-4">
         <Image
