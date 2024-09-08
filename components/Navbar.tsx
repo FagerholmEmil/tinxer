@@ -4,7 +4,7 @@ import { useUser } from "@/app/login/useUser";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import Image from "next/image";
-import minilogo from "../assets/minilogo.svg"
+import minilogo from "../assets/minilogo.svg";
 
 export default function Navbar() {
   const user = useUser();
@@ -14,7 +14,7 @@ export default function Navbar() {
     <div className="flex items-center justify-between w-full h-16 px-4 py-2 bg-white shadow-sm">
       <div className="flex items-center gap-4">
         <Image src={minilogo} alt="logo" className="h-8 w-8" />
-        <h1 className="text-xl font-bold">Tinxer</h1>
+        <h1 className="text-xl font-bold">TinXer</h1>
       </div>
       <div className="flex items-center gap-4">
         {user ? (
