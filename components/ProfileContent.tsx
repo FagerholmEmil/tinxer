@@ -9,6 +9,7 @@ const ProfileContent: React.FC = () => {
       <Card>
         <CardHeader>
           <h2 className="text-xl font-semibold">Your Matches</h2>
+          <p className="text-xl font-semibold">False</p>
         </CardHeader>
         <CardContent>
           {/* Add matches content here */}
@@ -28,8 +29,6 @@ const ProfileContent: React.FC = () => {
         <h2 className="text-2xl font-bold mb-4">Settings</h2>
         <Sidebar />
       </div>
-
-      <Button className="w-full">Update</Button>
     </div>
   );
 };
