@@ -22,15 +22,15 @@ const Leaderboard = () => {
             </div>
             <div>
                 <LeaderboardItem title="Attention is all you need" votes={10} />
-                <LeaderboardItem title="The Annotated Transformer" votes={10} />
-                <LeaderboardItem title="The First Law of Complexodynamics" votes={10} />
+                <LeaderboardItem title="The Annotated Transformer" votes={8} />
+                <LeaderboardItem title="The First Law of Complexodynamics" votes={6} />
                 <LeaderboardItem title="Pointer Networks" votes={10} />
-                <LeaderboardItem title="ImageNet Classification with Deep Convolutional Neural Networks" votes={10} />
-                <LeaderboardItem title="GPipe: Easy Scaling with Micro-Batch Pipeline Parallelism" votes={10} />
-                <LeaderboardItem title="ImageNet Classification with Deep Convolutional Neural Networks" votes={10} />
-                <LeaderboardItem title="Deep Residual Learning for Image Recognition" votes={10} />
-                <LeaderboardItem title="A Tutorial Introduction to the Minimum Description Length Principle" votes={10} />
-                <LeaderboardItem title="Scaling Laws for Neural Language Models" votes={10} />
+                <LeaderboardItem title="ImageNet Classification with Deep Convolutional Neural Networks" votes={4} />
+                <LeaderboardItem title="GPipe: Easy Scaling with Micro-Batch Pipeline Parallelism" votes={2} />
+                <LeaderboardItem title="ImageNet Classification with Deep Convolutional Neural Networks" votes={2} />
+                <LeaderboardItem title="Deep Residual Learning for Image Recognition" votes={2} />
+                <LeaderboardItem title="A Tutorial Introduction to the Minimum Description Length Principle" votes={1} />
+                <LeaderboardItem title="Scaling Laws for Neural Language Models" votes={1} />
             </div>
         </div>
     )
