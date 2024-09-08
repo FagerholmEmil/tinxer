@@ -4,7 +4,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Document, Page, pdfjs } from 'react-pdf';
-import { saveLikedPdf } from '../utils/pdfUtils';
+import { saveLikedPdf } from '../app/utils/pdfUtils';
 
 // Set up the worker for PDF.js
 pdfjs.GlobalWorkerOptions.workerSrc = new URL(
@@ -24,15 +24,23 @@ function CustomPDFViewer({ pdfUrls }: CustomPDFViewerProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   if (pdfUrls.length === 0) {
-    return <div className='flex flex-col justify-center items-center min-h-screen text-black'> 
+    return <div className='flex flex-col justify-center items-center min-h-screen text-black'>
       <LoadingSpinner />
     </div>;
   }
 
   return (
     <div className='flex flex-col justify-center items-center w-[600px] p-5 max-w-[85vw] rounded-[20px] relative'>
-      <Document file={"https://arxiv.org/pdf/2001.00019"}>
-        <Page pageNumber={1} />
+      <Document 
+        file={"https://arxiv.org/pdf/2001.00019"}
+        className="unselectable"
+      >
+        <Page 
+          pageNumber={1} 
+          width={340} 
+          scale={0.8}
+          className="unselectable"
+        />
       </Document>
     </div>
   );
