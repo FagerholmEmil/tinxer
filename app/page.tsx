@@ -5,10 +5,12 @@ import TinderCards from '../components/TinderCards';
 import Image from 'next/image';
 import phone from '../assets/phone.svg';
 import logo from '../assets/logo.svg';
+import Sidebar from '@/components/Sidebar';
 
 const Home: React.FC = () => {
   return (
     <div className="flex items-center justify-center min-h-screen">
+      <Sidebar className="fixed left-0 top-0 h-full " />
       <div className="relative">
         <Image
           src={phone}
