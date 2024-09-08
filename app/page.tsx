@@ -9,7 +9,7 @@ import Sidebar from "@/components/Sidebar";
 
 const Home: React.FC = () => {
   return (
-    <div className="flex items-center justify-end min-h-screen relative">
+    <div className="flex items-center justify-end relative">
       <Sidebar className="absolute top-15 left-0 h-full" />
       <div className="relative mr-4">
         <Image
@@ -17,7 +17,7 @@ const Home: React.FC = () => {
           alt="Phone logo"
           width={300}
           height={600}
-          className="h-[100vh] m w-auto object-contain p-4 pointer-events-none select-none"
+          className="w-auto object-contain p-4 pointer-events-none select-none"
         />
         <Image
           src={logo}
