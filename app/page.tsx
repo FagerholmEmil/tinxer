@@ -17,7 +17,7 @@ const Home: React.FC = () => {
           alt="Phone logo"
           width={300}
           height={600}
-          className="h-[100vh] m w-auto object-contain p-4 pointer-events-none select-none"
+          className="h-[90vh] mb-10 w-auto object-contain pointer-events-none select-none"
         />
         <Image
           src={logo}
