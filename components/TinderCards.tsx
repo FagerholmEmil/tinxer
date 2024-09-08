@@ -8,6 +8,7 @@ import { Paper } from "./Paper";
 import { useUser } from "@/app/login/useUser";
 import { runAI } from "./ai";
 import { useSettingsContext } from "./providers";
+import LoadingSpinner from "./LoadingSpinner";
 
 const parseXMLPapers = (xml: string) => {
   const parser = new DOMParser();
@@ -25,7 +26,7 @@ const parseXMLPapers = (xml: string) => {
 };
 
 const usePapers = () => {
-  const [papers, setPapers] = useState<Paper[]>([]);
+  const [papers, setPapers] = useState<Paper[] | null>(null);
   const { topic } = useSettingsContext();
 
   useEffect(() => {
@@ -50,7 +51,7 @@ const usePapers = () => {
 const TinderCards: React.FC = () => {
   const papers = usePapers();
   const [currentIndex, setCurrentIndex] = useState(0);
-  const ci = (papers.length ?? 1) - 1 - currentIndex;
+  const ci = (papers?.length ?? 1) - 1 - currentIndex;
 
   const user = useUser();
 
@@ -75,7 +76,7 @@ const TinderCards: React.FC = () => {
   return (
     <div className="flex items-center justify-center">
       <div className="relative w-[300px] h-[80vh] mt-10">
-        {papers.map((paper) => (
+        {papers?.map((paper) => (
           <TinderCard
             key={paper.name}
             onSwipe={onSwipe}
@@ -91,11 +92,15 @@ const TinderCards: React.FC = () => {
               </div>
             </div>
           </TinderCard>
-        ))}
+        )) ?? (
+          <div className="flex items-center justify-center h-[500px]">
+            <LoadingSpinner />
+          </div>
+        )}
       </div>
 
       <div className="absolute bottom-[100px] left-1/2 transform -translate-x-1/2 flex space-x-4 flex-row items-center justify-center">
-        {papers[ci] && (
+        {papers && papers[ci] && (
           <Link
             href={papers[ci]?.pdfUrl}
             target="_blank"

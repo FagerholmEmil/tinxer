@@ -1,8 +1,8 @@
 import { GridLoader } from "react-spinners";
 
 const LoadingSpinner = () => {
-  const orangeHex = "#FF7F50";
-  return <GridLoader color={orangeHex} />;
+  const redHex = "#F0506B";
+  return <GridLoader color={redHex} />;
 };
 
 export default LoadingSpinner;
