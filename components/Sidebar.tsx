@@ -4,6 +4,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { Button } from "./ui/button";
 import { ChevronDown, ChevronRight } from "lucide-react";
 import { useSettingsContext } from "./providers";
+import { Card } from "./ui/card";
 
 interface SidebarProps {
   className?: string;
@@ -22,7 +23,6 @@ interface TopicData {
 const Sidebar: React.FC<SidebarProps> = ({ className }) => {
   const [topics, setTopics] = useState<TopicData>({});
   const [expandedTopics, setExpandedTopics] = useState<string[]>([]);
-  const [isUpdateActive, setIsUpdateActive] = useState(false);
   const { topic: flatTopics, setTopic: setFlatTopics } = useSettingsContext();
 
   const fetchTopics = useCallback(async () => {
@@ -46,12 +46,6 @@ const Sidebar: React.FC<SidebarProps> = ({ className }) => {
     );
   };
 
-  const handleUpdate = async () => {
-    setIsUpdateActive(true);
-    await fetchTopics();
-    setIsUpdateActive(false);
-  };
-
   const toggleSubtopic = (subtopic: string) => {
     setFlatTopics((prev) =>
       prev.includes(subtopic)
@@ -61,24 +55,25 @@ const Sidebar: React.FC<SidebarProps> = ({ className }) => {
   };
 
   return (
-    <div
-      className={`${className} flex flex-col gap-2 p-2 overflow-y-auto max-w-[400px]`}
+    <Card
+      className={`${className} flex flex-col gap-2 p-4 overflow-y-auto max-w-[600px] mx-auto`}
     >
+      <h1 className="text-2xl font-bold mb-4">Settings</h1>
       {Object.entries(topics).map(([topic, subtopics]) => (
         <div key={topic} className="flex flex-col gap-1">
           <Button
-            className="w-full flex justify-between items-center"
+            className="w-full flex justify-between items-center font-bold"
             variant="ghost"
             onClick={() => toggleTopic(topic)}
           >
             {topic}
-            {expandedTopics.includes(topic) ? (
+            {!expandedTopics.includes(topic) ? (
               <ChevronDown size={16} />
             ) : (
               <ChevronRight size={16} />
             )}
           </Button>
-          {expandedTopics.includes(topic) && (
+          {!expandedTopics.includes(topic) && (
             <div className="flex gap-1 flex-wrap">
               {Object.keys(subtopics).map((subtopic) => {
                 return (
@@ -98,14 +93,7 @@ const Sidebar: React.FC<SidebarProps> = ({ className }) => {
           )}
         </div>
       ))}
-      <Button
-        className={`mt-2 ${isUpdateActive ? "bg-gray-800 hover:bg-gray-900" : "bg-gray-700 hover:bg-gray-800"} text-white`}
-        onClick={handleUpdate}
-        disabled={isUpdateActive}
-      >
-        {isUpdateActive ? "Loading..." : "Update"}
-      </Button>
-    </div>
+    </Card>
   );
 };
 

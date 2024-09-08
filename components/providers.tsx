@@ -13,7 +13,11 @@ const SettingsContext = createContext<SettingsContextType | undefined>(
 export const SettingsProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [topic, setTopic] = useState<string[]>([]);
+  const [topic, setTopic] = useState<string[]>([
+    "Artificial Intelligence",
+    "Quantitative Biology",
+    "Astrophysics",
+  ]);
 
   return (
     <SettingsContext.Provider value={{ topic, setTopic }}>
