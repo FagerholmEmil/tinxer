@@ -31,7 +31,7 @@ const usePapers = () => {
 
   useEffect(() => {
     runAI(
-      "Given the following topics, respond only with a combined search query that fits with this. Nothing else. just the search query. Max 140 characters. ",
+      "Given the following topics, respond only with a combined search query that fits with this. Nothing else. just the search query. ",
       topic.join("\n"),
     )
       .then((res) => res?.trim())
