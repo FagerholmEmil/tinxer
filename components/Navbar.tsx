@@ -18,11 +18,33 @@ export default function Navbar() {
       </Link>
       <div className="flex items-center gap-4">
         {user ? (
-          <Button onClick={() => supabase.auth.signOut()}>Sign out</Button>
+          <>
+            {user.user_metadata?.avatar_url && (
+              <Link href="/">
+                <Image
+                  src={user.user_metadata.avatar_url}
+                  alt="User avatar"
+                  width={32}
+                  height={32}
+                  className="rounded-full"
+                />
+              </Link>
+            )}
+            <Button onClick={() => supabase.auth.signOut()}>Sign out</Button>
+          </>
         ) : (
-          <Link href="/login" className="text-blue-500 hover:underline">
-            Sign in
-          </Link>
+          <>
+            <Image
+              src="/default-avatar.png"
+              alt="Default avatar"
+              width={32}
+              height={32}
+              className="rounded-full"
+            />
+            <Link href="/login" className="text-blue-500 hover:underline">
+              Sign in
+            </Link>
+          </>
         )}
       </div>
     </div>
