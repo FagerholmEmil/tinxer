@@ -9,6 +9,7 @@ const ProfileContent: React.FC = () => {
       <Card>
         <CardHeader>
           <h2 className="text-xl font-semibold">Your Matches</h2>
+          <p className="text-xl font-semibold">False</p>
         </CardHeader>
         <CardContent>
           {/* Add matches content here */}

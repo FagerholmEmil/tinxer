@@ -20,7 +20,7 @@ export default function Navbar() {
         {user ? (
           <>
             {user.user_metadata?.avatar_url && (
-              <Link href="/">
+              <Link href="/profile">
                 <Image
                   src={user.user_metadata.avatar_url}
                   alt="User avatar"
