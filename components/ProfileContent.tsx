@@ -28,7 +28,7 @@ const ProfileContent: React.FC = () => {
             href="/matches"
             className="underline text-blue-700 text-sm font-semibold"
           >
-            3 matches
+            10 matches
           </Link>
         </CardHeader>
         <CardContent>{/* Add matches content here */}</CardContent>
