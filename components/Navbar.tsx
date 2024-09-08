@@ -12,7 +12,7 @@ export default function Navbar() {
     <div className="flex items-center justify-between w-full h-16 px-4 py-2 bg-white shadow-sm">
       <div className="flex items-center gap-4">
         <img src="/logo.png" alt="logo" className="h-8 w-8" />
-        <h1 className="text-xl font-bold">Tinxer</h1>
+        <h1 className="text-xl font-bold">TinXer</h1>
       </div>
       <div className="flex items-center gap-4">
         {user ? (
