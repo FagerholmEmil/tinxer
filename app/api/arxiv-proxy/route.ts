@@ -4,7 +4,7 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const topic = searchParams.get('topic');
   
-  const arxivUrl = `http://export.arxiv.org/api/query?search_query=all:${topic}`;
+  const arxivUrl = `http://export.arxiv.org/api/query?search_query=all:${topic}:`;
   
   try {
     const response = await fetch(arxivUrl);

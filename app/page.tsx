@@ -1,11 +1,14 @@
-import Login from "./login/page";
+"use client";
 
-const PDFBrowser: React.FC = () => {
+import React from 'react';
+import TinderCards from './components/TinderCards';
+
+const Home: React.FC = () => {
   return (
-    <div className="flex flex-row justify-center items-center min-h-[50vh] w-full">
-      <Login />
+    <div className="flex items-center justify-center min-h-screen">
+      <TinderCards />
     </div>
   );
 };
 
-export default PDFBrowser;
+export default Home;
