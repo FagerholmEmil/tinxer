@@ -4,8 +4,8 @@
 ## Built for the [AI Devtools Hackathon](https://lu.ma/devtools-hackathon?tk=vuwkyy).
 
 ### Problem
-- Finding interesting and relevant research papers is hard
-- Finding people interested in the same kind of papers is harder
+- Finding interesting and relevant research papers is hard.
+- Finding people interested in the same kind of papers is even harder.
 
 ### Solution
 - TinXer is an AI-powered paper recommendation engine that finds people with similar interests as you.
